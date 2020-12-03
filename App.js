@@ -13,6 +13,7 @@ export default function App() {
 
     const handleStartGame = selectedNumber => {
         setUserNumber(selectedNumber);
+        setGuessRound(0);
     };
 
     const handleGameOver = numOfRounds => {
@@ -21,13 +22,15 @@ export default function App() {
 
     const handlePlayAgain = () => {
         setUserNumber(null);
+        setGuessRound(0);
     }
 
     return (
         <View style={styles.screen}>
             <Header title={"Guess Game"}/>
             {
-                userNumber ? <GameScreen userChoice={userNumber} handleGameOver={handleGameOver} />
+                guessRounds ? <GameOverScreen onPlayAgain={handlePlayAgain} rounds={guessRounds} userNumber={userNumber} />
+                : userNumber ? <GameScreen userChoice={userNumber} handleGameOver={handleGameOver} />
                 : <StartGameScreen onGameStart={handleStartGame} />
             }
             <StatusBar style="auto"/>
